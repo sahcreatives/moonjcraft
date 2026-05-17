@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Visual Gallery - MoonjCraft | Artisan Craftsmanship in Pictures</title>
+    <meta name="description" content="Explore our visual gallery showcasing the beauty of handwoven Moonj craft — from artisan life to the finished products that bring sustainable decor to homes worldwide.">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Gallery Hero */
+        .gallery-hero {
+            background: linear-gradient(135deg, rgba(107, 112, 92, 0.92), rgba(45, 42, 36, 0.88)), url('images/Content Images/hero_banner.png');
+            background-size: cover;
+            background-position: center;
+            padding: 100px 0 80px;
+            text-align: center;
+            color: var(--white);
+            position: relative;
+        }
+
+        .gallery-hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 80px;
+            background: linear-gradient(to top, var(--bg-color), transparent);
+        }
+
+        .gallery-hero .container {
+            max-width: 800px;
+        }
+
+        .gallery-hero .page-tagline {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            opacity: 0.8;
+            margin-bottom: 20px;
+        }
+
+        .gallery-hero h1 {
+            font-size: 3.5rem;
+            font-weight: 400;
+            margin-bottom: 25px;
+            color: var(--white);
+        }
+
+        .gallery-hero h1 span {
+            font-style: italic;
+            display: block;
+        }
+
+        .gallery-hero p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            line-height: 1.8;
+        }
+
+        /* Gallery Section */
+        .gallery-section {
+            padding: 100px 0;
+            background: var(--bg-color);
+        }
+
+        .gallery-section:nth-child(even) {
+            background: var(--white);
+        }
+
+        .gallery-section.dark-bg {
+            background: #1a1a1a;
+            color: var(--white);
+        }
+
+        .section-header-center {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-header-center .tagline {
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--accent-gold);
+            margin-bottom: 15px;
+        }
+
+        .section-header-center h2 {
+            font-size: 2.5rem;
+            font-weight: 500;
+            margin-bottom: 15px;
+            color: inherit;
+        }
+
+        .section-header-center p {
+            color: var(--text-muted);
+            max-width: 550px;
+            margin: 0 auto;
+            font-size: 1rem;
+        }
+
+        .gallery-section.dark-bg .section-header-center p {
+            color: rgba(255,255,255,0.7);
+        }
+
+        /* Grid Layout */
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .gallery-item {
+            position: relative;
+            overflow: hidden;
+            border-radius: 12px;
+            cursor: pointer;
+            aspect-ratio: 1;
+        }
+
+        .gallery-item.tall {
+            grid-row: span 2;
+            aspect-ratio: auto;
+        }
+
+        .gallery-item.wide {
+            grid-column: span 2;
+            aspect-ratio: 2/1;
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.08);
+        }
+
+        .gallery-item-overlay {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            align-items: flex-end;
+            padding: 20px;
+        }
+
+        .gallery-item:hover .gallery-item-overlay {
+            opacity: 1;
+        }
+
+        .gallery-item-overlay span {
+            color: var(--white);
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        /* Masonry Layout */
+        .gallery-masonry {
+            columns: 4;
+            column-gap: 15px;
+        }
+
+        .gallery-masonry .gallery-item {
+            break-inside: avoid;
+            margin-bottom: 15px;
+            height: 250px;
+        }
+
+        /* Carousel Layout */
+        .gallery-carousel-new {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .gallery-carousel-track {
+            display: flex;
+            gap: 20px;
+            transition: transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
+        }
+
+        .gallery-carousel-item {
+            flex: 0 0 calc(33.333% - 14px);
+            height: 280px;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .gallery-carousel-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-carousel-item:hover img {
+            transform: scale(1.05);
+        }
+
+        .gallery-carousel-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--white);
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .gallery-carousel-nav:hover {
+            background: var(--accent-terracotta);
+            color: var(--white);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .gallery-carousel-nav.prev {
+            left: 15px;
+        }
+
+        .gallery-carousel-nav.next {
+            right: 15px;
+        }
+
+        .gallery-carousel-nav svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Video Grid */
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .video-card {
+            background: var(--white);
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+            transition: all 0.4s ease;
+        }
+
+        .video-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
+        }
+
+        .video-thumbnail {
+            position: relative;
+            height: 200px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .video-thumbnail img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .video-card:hover .video-thumbnail img {
+            transform: scale(1.08);
+        }
+
+        .video-play-btn {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            background: var(--accent-terracotta);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--white);
+            font-size: 1.5rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 25px rgba(214, 149, 74, 0.4);
+        }
+
+        .video-card:hover .video-play-btn {
+            transform: translate(-50%, -50%) scale(1.15);
+        }
+
+        .video-info {
+            padding: 20px;
+        }
+
+        .video-info h3 {
+            font-size: 1.1rem;
+            margin-bottom: 5px;
+            color: var(--text-color);
+        }
+
+        .video-info p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        /* Lightbox Modal */
+        .gallery-lightbox-modal {
+            display: none;
+            position: fixed;
+            z-index: 3000;
+            inset: 0;
+            background: rgba(10, 10, 10, 0.97);
+            backdrop-filter: blur(10px);
+        }
+
+        .gallery-lightbox-modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gallery-lightbox-content {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 80px;
+            cursor: grab;
+        }
+
+        .gallery-lightbox-content:active {
+            cursor: grabbing;
+        }
+
+        .gallery-lightbox-content img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            border-radius: 8px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+        }
+
+        .gallery-lightbox-close {
+            position: absolute;
+            top: 25px;
+            right: 30px;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: white;
+            font-size: 1.8rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .gallery-lightbox-close:hover {
+            background: rgba(255,255,255,0.2);
+            transform: scale(1.1);
+        }
+
+        .gallery-lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 55px;
+            height: 55px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.15);
+            color: white;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            z-index: 10;
+        }
+
+        .gallery-lightbox-nav:hover {
+            background: var(--accent-terracotta);
+            border-color: var(--accent-terracotta);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .gallery-lightbox-nav.prev {
+            left: 25px;
+        }
+
+        .gallery-lightbox-nav.next {
+            right: 25px;
+        }
+
+        .gallery-lightbox-nav svg {
+            width: 24px;
+            height: 24px;
+        }
+
+        .gallery-lightbox-counter {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255,255,255,0.7);
+            font-size: 0.85rem;
+            letter-spacing: 2px;
+        }
+
+        /* Video Lightbox */
+        .video-lightbox-modal {
+            display: none;
+            position: fixed;
+            z-index: 3000;
+            inset: 0;
+            background: rgba(10, 10, 10, 0.97);
+            backdrop-filter: blur(10px);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .video-lightbox-modal.active {
+            display: flex;
+        }
+
+        .video-lightbox-content {
+            width: 90%;
+            max-width: 1000px;
+            aspect-ratio: 16/9;
+            background: #000;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .video-lightbox-content iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        .video-lightbox-close {
+            position: absolute;
+            top: -50px;
+            right: 0;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.1);
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+
+        .video-lightbox-close:hover {
+            background: rgba(255,255,255,0.2);
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .gallery-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .gallery-masonry {
+                columns: 3;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .gallery-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .gallery-masonry {
+                columns: 2;
+            }
+            .video-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .gallery-carousel-item {
+                flex: 0 0 calc(50% - 10px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .gallery-hero h1 {
+                font-size: 2.5rem;
+            }
+            .gallery-hero {
+                padding: 70px 0 100px;
+            }
+            .gallery-section {
+                padding: 60px 0;
+            }
+            .section-header-center h2 {
+                font-size: 2rem;
+            }
+            .gallery-grid {
+                grid-template-columns: 1fr;
+            }
+            .gallery-item.tall,
+            .gallery-item.wide {
+                grid-row: auto;
+                grid-column: auto;
+                aspect-ratio: 1;
+            }
+            .gallery-masonry {
+                columns: 1;
+            }
+            .video-grid {
+                grid-template-columns: 1fr;
+            }
+            .gallery-carousel-item {
+                flex: 0 0 calc(100% - 40px);
+            }
+            .gallery-carousel-nav {
+                display: none;
+            }
+            .gallery-lightbox-content {
+                padding: 60px 20px;
+            }
+            .gallery-lightbox-nav {
+                width: 44px;
+                height: 44px;
+            }
+            .gallery-lightbox-nav.prev {
+                left: 10px;
+            }
+            .gallery-lightbox-nav.next {
+                right: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .gallery-hero h1 {
+                font-size: 2rem;
+            }
+            .gallery-carousel-item {
+                flex: 0 0 calc(100% - 20px);
+                height: 220px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="mobile-menu-toggle" id="mobile-menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <div class="logo">
+                    <a href="index.html">MOONJ<span>CRAFT</span></a>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="collection.html">Collection</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="quote-request.html" class="quote-link">Quote <span class="quote-badge" style="display:none;">0</span></a></li>
+                </ul>
+                <div class="mobile-quote-icon">
+                    <a href="quote-request.html">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                        <span class="quote-badge mobile-badge" style="display:none;">0</span>
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <div class="mobile-sidebar" id="mobile-sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <a href="index.html">MOONJ<span>CRAFT</span></a>
+            </div>
+            <div class="close-sidebar" id="close-sidebar">&times;</div>
+        </div>
+        <ul class="sidebar-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="collection.html">Collection</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="quote-request.html">Quote Request</a></li>
+        </ul>
+        <div style="margin-top: auto; padding-top: 30px; border-top: 1px solid var(--gray-light);">
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 10px;">Connect with us</p>
+            <p style="font-size: 0.9rem; font-weight: 600;">sonugupta.connect@gmail.com</p>
+        </div>
+    </div>
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+    <script src="quoteManager.js"></script>
+    <script src="data.js"></script>
+
+    <main>
+        <!-- Hero -->
+        <section class="gallery-hero">
+            <div class="container">
+                <span class="page-tagline">VISUAL GALLERY</span>
+                <h1>Our World in <span>Pictures</span></h1>
+                <p>A visual journey through the lives of our artisans, the beauty of our craft, and the products that bring sustainable elegance to homes around the world.</p>
+            </div>
+        </section>
+
+        <!-- Gallery Sections Container -->
+        <div id="gallery-sections"></div>
+    </main>
+
+    <!-- Image Lightbox -->
+    <div class="gallery-lightbox-modal" id="imageLightbox">
+        <button class="gallery-lightbox-close" id="imageLightboxClose">&times;</button>
+        <button class="gallery-lightbox-nav prev" id="imageLightboxPrev">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+        </button>
+        <div class="gallery-lightbox-content" id="imageLightboxContent">
+            <img src="" alt="" id="imageLightboxImg">
+        </div>
+        <button class="gallery-lightbox-nav next" id="imageLightboxNext">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+        </button>
+        <span class="gallery-lightbox-counter" id="imageLightboxCounter"></span>
+    </div>
+
+    <!-- Video Lightbox -->
+    <div class="video-lightbox-modal" id="videoLightbox">
+        <div class="video-lightbox-content">
+            <button class="video-lightbox-close" id="videoLightboxClose">&times;</button>
+            <iframe id="videoLightboxFrame" src="" allowfullscreen></iframe>
+        </div>
+    </div>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <div class="logo" style="margin-bottom: 25px;">
+                        <a href="index.html" style="color: var(--white);">MOONJ<span>CRAFT</span></a>
+                    </div>
+                    <p style="color: #999; margin-bottom: 25px;">Handcrafted sustainable decor from the heart of Purvanchal, India. Empowering rural artisans through fair commerce.</p>
+                    <p style="color: var(--accent-gold);">100% Eco-Friendly | Handmade</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Collections</h3>
+                    <ul class="footer-links">
+                        <li><a href="collection.html#serving-trays">Tabletop</a></li>
+                        <li><a href="collection.html#multipurpose-roti-baskets">Kitchen & Roti</a></li>
+                        <li><a href="collection.html#laundry-storage">Laundry & Storage</a></li>
+                        <li><a href="collection.html#fruit-baskets">Gift Hampers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Explore</h3>
+                    <ul class="footer-links">
+                        <li><a href="about.html">Our Story</a></li>
+                        <li><a href="collection.html">Full Collection</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Connect</h3>
+                    <p style="margin-bottom: 10px;">Email: <a href="mailto:sonugupta.connect@gmail.com">sonugupta.connect@gmail.com</a></p>
+                    <p style="margin-bottom: 10px;">WhatsApp: <a href="https://wa.me/918447236068">+91 8447236068</a></p>
+                    <p>Medical College Road, Basharatpur, Gorakhpur, Uttar Pradesh, India 273004</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 MoonjCraft. All rights reserved. Preserving heritage, one weave at a time.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const gallerySectionsContainer = document.getElementById('gallery-sections');
+            let allGalleryImages = [];
+            let currentImageIndex = 0;
+
+            // Generate gallery sections
+            gallerySections.forEach((section, sectionIndex) => {
+                const sectionEl = document.createElement('section');
+                sectionEl.className = `gallery-section ${sectionIndex % 2 === 1 ? '' : ''}`;
+                sectionEl.id = `gallery-${section.id}`;
+
+                if (section.type === 'images') {
+                    const images = getGalleryImages(section.id);
+                    if (images.length === 0) return;
+
+                    let galleryContent = '';
+
+                    if (section.display === 'grid') {
+                        galleryContent = `
+                            <div class="container">
+                                <div class="section-header-center">
+                                    <span class="tagline">${section.subtitle}</span>
+                                    <h2>${section.title}</h2>
+                                </div>
+                                <div class="gallery-grid">
+                                    ${images.map((img, idx) => `
+                                        <div class="gallery-item ${idx === 0 ? 'tall' : ''}" data-index="${allGalleryImages.length}" data-src="images/Content Images/${section.folder}/${img}">
+                                            <img src="images/Content Images/${section.folder}/${img}" alt="${section.title}" loading="lazy">
+                                            <div class="gallery-item-overlay"><span>${img.replace('.jpg', '').replace(/-/g, ' ')}</span></div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        `;
+                        images.forEach(img => allGalleryImages.push(`images/Content Images/${section.folder}/${img}`));
+                    } else if (section.display === 'masonry') {
+                        galleryContent = `
+                            <div class="container">
+                                <div class="section-header-center">
+                                    <span class="tagline">${section.subtitle}</span>
+                                    <h2>${section.title}</h2>
+                                </div>
+                                <div class="gallery-masonry">
+                                    ${images.map((img, idx) => `
+                                        <div class="gallery-item" data-index="${allGalleryImages.length}" data-src="images/Content Images/${section.folder}/${img}">
+                                            <img src="images/Content Images/${section.folder}/${img}" alt="${section.title}" loading="lazy">
+                                            <div class="gallery-item-overlay"><span>${img.replace('.jpg', '').replace(/-/g, ' ')}</span></div>
+                                        </div>
+                                    `).join('')}
+                                </div>
+                            </div>
+                        `;
+                        images.forEach(img => allGalleryImages.push(`images/Content Images/${section.folder}/${img}`));
+                    } else if (section.display === 'carousel') {
+                        galleryContent = `
+                            <div class="container">
+                                <div class="section-header-center">
+                                    <span class="tagline">${section.subtitle}</span>
+                                    <h2>${section.title}</h2>
+                                </div>
+                                <div class="gallery-carousel-new" id="carousel-${section.id}">
+                                    <button class="gallery-carousel-nav prev" onclick="moveCarousel('${section.id}', -1)">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"></polyline></svg>
+                                    </button>
+                                    <div class="gallery-carousel-track" id="track-${section.id}">
+                                        ${images.map((img, idx) => `
+                                            <div class="gallery-carousel-item" data-index="${allGalleryImages.length}" data-src="images/Content Images/${section.folder}/${img}">
+                                                <img src="images/Content Images/${section.folder}/${img}" alt="${section.title}" loading="lazy">
+                                            </div>
+                                        `).join('')}
+                                    </div>
+                                    <button class="gallery-carousel-nav next" onclick="moveCarousel('${section.id}', 1)">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"></polyline></svg>
+                                    </button>
+                                </div>
+                            </div>
+                        `;
+                        images.forEach(img => allGalleryImages.push(`images/Content Images/${section.folder}/${img}`));
+                    }
+
+                    sectionEl.innerHTML = galleryContent;
+                } else if (section.type === 'videos') {
+                    const videos = getGalleryVideos(section.id);
+                    if (videos.length === 0) return;
+
+                    sectionEl.innerHTML = `
+                        <div class="container">
+                            <div class="section-header-center">
+                                <span class="tagline">${section.subtitle}</span>
+                                <h2>${section.title}</h2>
+                            </div>
+                            <div class="video-grid">
+                                ${videos.map((video, idx) => `
+                                    <div class="video-card" onclick="openVideoLightbox('${video.videoSrc}')">
+                                        <div class="video-thumbnail">
+                                            <img src="images/Content Images/${section.thumbnailFolder}/${video.thumbnail}" alt="${video.title}" loading="lazy">
+                                            <div class="video-play-btn">▶</div>
+                                        </div>
+                                        <div class="video-info">
+                                            <h3>${video.title}</h3>
+                                            <p>Watch our story</p>
+                                        </div>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `;
+                }
+
+                gallerySectionsContainer.appendChild(sectionEl);
+            });
+
+            // Carousel functionality
+            window.carouselPositions = {};
+            window.moveCarousel = function(sectionId, direction) {
+                const track = document.getElementById(`track-${sectionId}`);
+                const items = track.querySelectorAll('.gallery-carousel-item');
+                if (!items.length) return;
+
+                const itemWidth = items[0].offsetWidth + 20;
+                if (!window.carouselPositions[sectionId]) window.carouselPositions[sectionId] = 0;
+
+                const maxOffset = -(items.length - Math.floor(track.parentElement.offsetWidth / itemWidth)) * itemWidth;
+                window.carouselPositions[sectionId] += direction * itemWidth;
+                window.carouselPositions[sectionId] = Math.max(maxOffset, Math.min(0, window.carouselPositions[sectionId]));
+
+                track.style.transform = `translateX(${window.carouselPositions[sectionId]}px)`;
+            };
+
+            // Image Lightbox
+            const imageLightbox = document.getElementById('imageLightbox');
+            const imageLightboxImg = document.getElementById('imageLightboxImg');
+            const imageLightboxCounter = document.getElementById('imageLightboxCounter');
+
+            document.querySelectorAll('.gallery-item, .gallery-carousel-item').forEach(item => {
+                item.addEventListener('click', () => {
+                    const idx = parseInt(item.dataset.index);
+                    currentImageIndex = idx;
+                    openImageLightbox(idx);
+                });
+            });
+
+            function openImageLightbox(index) {
+                imageLightboxImg.src = allGalleryImages[index];
+                imageLightboxCounter.textContent = `${index + 1} / ${allGalleryImages.length}`;
+                imageLightbox.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeImageLightbox() {
+                imageLightbox.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            document.getElementById('imageLightboxClose').addEventListener('click', closeImageLightbox);
+            document.getElementById('imageLightboxPrev').addEventListener('click', () => {
+                currentImageIndex = (currentImageIndex - 1 + allGalleryImages.length) % allGalleryImages.length;
+                openImageLightbox(currentImageIndex);
+            });
+            document.getElementById('imageLightboxNext').addEventListener('click', () => {
+                currentImageIndex = (currentImageIndex + 1) % allGalleryImages.length;
+                openImageLightbox(currentImageIndex);
+            });
+
+            imageLightbox.addEventListener('click', (e) => {
+                if (e.target === imageLightbox || e.target.id === 'imageLightboxContent') closeImageLightbox();
+            });
+
+            // Keyboard navigation
+            document.addEventListener('keydown', (e) => {
+                if (!imageLightbox.classList.contains('active')) return;
+                if (e.key === 'Escape') closeImageLightbox();
+                if (e.key === 'ArrowLeft') document.getElementById('imageLightboxPrev').click();
+                if (e.key === 'ArrowRight') document.getElementById('imageLightboxNext').click();
+            });
+
+            // Touch swipe for lightbox
+            let touchStartX = 0;
+            imageLightbox.addEventListener('touchstart', (e) => {
+                touchStartX = e.touches[0].clientX;
+            });
+            imageLightbox.addEventListener('touchend', (e) => {
+                const diff = touchStartX - e.changedTouches[0].clientX;
+                if (diff > 50) document.getElementById('imageLightboxNext').click();
+                else if (diff < -50) document.getElementById('imageLightboxPrev').click();
+            });
+
+            // Video Lightbox
+            const videoLightbox = document.getElementById('videoLightbox');
+            const videoLightboxFrame = document.getElementById('videoLightboxFrame');
+
+            window.openVideoLightbox = function(src) {
+                videoLightboxFrame.src = src;
+                videoLightbox.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            };
+
+            function closeVideoLightbox() {
+                videoLightboxFrame.src = '';
+                videoLightbox.classList.remove('active');
+                document.body.style.overflow = '';
+            }
+
+            document.getElementById('videoLightboxClose').addEventListener('click', closeVideoLightbox);
+            videoLightbox.addEventListener('click', (e) => {
+                if (e.target === videoLightbox) closeVideoLightbox();
+            });
+
+            // Initialize reveal animations
+            if (window.initReveal) window.initReveal();
+        });
+    </script>
+</body>
+</html>

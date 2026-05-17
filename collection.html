@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Collection - MoonjCraft</title>
+    <meta name="description" content="Explore our complete range of handcrafted Moonj grass products - from serving trays to storage baskets, each piece is woven with purpose by skilled Indian artisans.">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .collection-hero {
+            background: linear-gradient(135deg, rgba(107, 112, 92, 0.9), rgba(214, 149, 74, 0.85)), url('images/Content Images/hero_banner.png');
+            background-size: cover;
+            background-position: center;
+            padding: 100px 0 80px;
+            text-align: center;
+            color: var(--white);
+        }
+
+        .collection-hero .container {
+            max-width: 800px;
+        }
+
+        .collection-hero .breadcrumb {
+            font-size: 0.8rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            opacity: 0.8;
+            margin-bottom: 20px;
+        }
+
+        .collection-hero .breadcrumb a {
+            color: var(--white);
+            text-decoration: none;
+        }
+
+        .collection-hero h1 {
+            font-size: 3.5rem;
+            font-weight: 400;
+            margin-bottom: 25px;
+            color: var(--white);
+        }
+
+        .collection-hero h1 span {
+            font-style: italic;
+            display: block;
+        }
+
+        .collection-hero p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            line-height: 1.8;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .collection-stats {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            margin-top: 50px;
+        }
+
+        .collection-stats .stat-item {
+            text-align: center;
+        }
+
+        .collection-stats .stat-value {
+            font-size: 2.5rem;
+            font-family: var(--font-heading);
+            color: var(--white);
+            display: block;
+            font-weight: 500;
+        }
+
+        .collection-stats .stat-label {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            opacity: 0.85;
+        }
+
+        /* Category Filter */
+        .category-filter {
+            background: var(--white);
+            padding: 25px 0;
+            position: sticky;
+            top: 70px;
+            z-index: 100;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        }
+
+        .category-filter .filter-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .filter-tab {
+            padding: 12px 28px;
+            border: 1px solid var(--gray-light);
+            border-radius: 30px;
+            background: transparent;
+            font-family: var(--font-body);
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-tab:hover {
+            border-color: var(--accent-terracotta);
+            color: var(--accent-terracotta);
+        }
+
+        .filter-tab.active {
+            background: var(--accent-terracotta);
+            border-color: var(--accent-terracotta);
+            color: var(--white);
+        }
+
+        .filter-select-wrapper {
+            display: none;
+            width: 100%;
+        }
+
+        .filter-select {
+            width: 100%;
+            padding: 12px 45px 12px 18px;
+            font-size: 0.9rem;
+            font-family: var(--font-body);
+            border: 1.5px solid var(--gray-light);
+            border-radius: 30px;
+            background: var(--white);
+            color: var(--text-color);
+            cursor: pointer;
+            appearance: none;
+            -webkit-appearance: none;
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 18px center;
+            transition: all 0.3s ease;
+        }
+
+        .filter-select:focus {
+            outline: none;
+            border-color: var(--accent-terracotta);
+        }
+
+        /* Collection Section */
+        .collection-section {
+            padding: 80px 0;
+            background: var(--bg-color);
+        }
+
+        .category-block {
+            margin-bottom: 100px;
+        }
+
+        .category-block:last-child {
+            margin-bottom: 0;
+        }
+
+        .category-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .category-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--accent-green), var(--accent-terracotta));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 25px;
+            color: var(--white);
+        }
+
+        .category-icon svg {
+            width: 28px;
+            height: 28px;
+        }
+
+        .category-header h2 {
+            font-size: 2.2rem;
+            color: var(--text-color);
+            margin-bottom: 15px;
+            font-weight: 500;
+        }
+
+        .category-header p {
+            color: var(--text-muted);
+            max-width: 500px;
+            margin: 0 auto;
+            font-size: 1rem;
+        }
+
+        .category-divider {
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(to right, var(--accent-green), var(--accent-terracotta));
+            margin: 25px auto 0;
+            border-radius: 2px;
+        }
+
+        /* Product Grid */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card-new {
+            background: var(--white);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.4s ease;
+            border: 1px solid transparent;
+            cursor: pointer; /* Whole card is clickable */
+        }
+
+        .product-card-new:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+            border-color: var(--accent-gold);
+        }
+
+        .product-image-wrap {
+            position: relative;
+            height: 260px;
+            overflow: hidden;
+            background: #fafafa;
+        }
+
+        .product-image-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .product-card-new:hover .product-image-wrap img {
+            transform: scale(1.08);
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background: var(--accent-terracotta);
+            color: var(--white);
+            padding: 6px 14px;
+            border-radius: 20px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .product-quick-actions {
+            position: absolute;
+            bottom: 15px;
+            right: 15px;
+            display: flex;
+            gap: 10px;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+        }
+
+        .product-card-new:hover .product-quick-actions {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .quick-action-btn {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: var(--white);
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+            transition: all 0.3s ease;
+            color: var(--text-color);
+        }
+
+        .quick-action-btn:hover {
+            background: var(--accent-terracotta);
+            color: var(--white);
+        }
+
+        .quick-action-btn svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .product-info {
+            padding: 25px;
+        }
+
+        .product-sku {
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            color: var(--accent-gold);
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .product-name {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--text-color);
+            margin-bottom: 8px;
+            font-family: var(--font-heading);
+        }
+
+        .product-dims {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 15px;
+        }
+
+        .product-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding-top: 15px;
+            border-top: 1px solid var(--gray-light);
+        }
+
+        .product-price {
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--accent-gold);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .product-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .qty-control {
+            display: flex;
+            align-items: center;
+            border: 1px solid var(--gray-light);
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .qty-control button {
+            width: 30px;
+            height: 32px;
+            border: none;
+            background: #fafafa;
+            cursor: pointer;
+            font-size: 1rem;
+            color: var(--text-muted);
+            transition: all 0.2s ease;
+        }
+
+        .qty-control button:hover {
+            background: var(--accent-terracotta);
+            color: var(--white);
+        }
+
+        .qty-control input {
+            width: 40px;
+            height: 32px;
+            border: none;
+            text-align: center;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .add-to-quote-btn {
+            padding: 10px 18px;
+            background: var(--accent-terracotta);
+            color: var(--white);
+            border: none;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .add-to-quote-btn:hover {
+            background: var(--accent-green);
+            transform: scale(1.05);
+        }
+
+        .view-details-link {
+            display: block;
+            text-align: center;
+            padding: 15px;
+            color: var(--accent-terracotta);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.85rem;
+            border-top: 1px solid var(--gray-light);
+            transition: all 0.3s ease;
+        }
+
+        .view-details-link:hover {
+            background: rgba(214, 149, 74, 0.05);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .collection-hero {
+                padding: 60px 0 50px;
+            }
+
+            .collection-hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .collection-stats {
+                gap: 30px;
+            }
+
+            .collection-stats .stat-value {
+                font-size: 2rem;
+            }
+
+            .category-filter {
+                top: 60px;
+                padding: 15px 0;
+            }
+
+            .filter-tab {
+                padding: 10px 18px;
+                font-size: 0.8rem;
+            }
+
+            .collection-section {
+                padding: 50px 0;
+            }
+
+            .category-block {
+                margin-bottom: 60px;
+            }
+
+            .category-header h2 {
+                font-size: 1.8rem;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+
+            .product-image-wrap {
+                height: 220px;
+            }
+
+            .product-info {
+                padding: 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .collection-hero h1 {
+                font-size: 2rem;
+            }
+
+            .collection-stats {
+                gap: 20px;
+            }
+
+            .collection-stats .stat-value {
+                font-size: 1.5rem;
+            }
+
+            .collection-stats .stat-label {
+                font-size: 0.65rem;
+                letter-spacing: 1px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .filter-tabs {
+                display: none !important;
+            }
+            .category-filter {
+                padding: 15px 0;
+            }
+            .category-filter .container {
+                padding: 0 15px;
+            }
+            .filter-select-wrapper {
+                display: block !important;
+                width: calc(100% + 30px);
+                margin-left: -15px;
+                margin-right: -15px;
+            }
+            .filter-select {
+                display: block;
+                width: 100%;
+                padding: 14px 45px 14px 20px;
+                font-size: 0.95rem;
+                border-radius: 0;
+                border: none;
+                border-bottom: 1.5px solid var(--gray-light);
+                text-align: center;
+                background: var(--white);
+                background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+                background-repeat: no-repeat;
+                background-position: right 15px center;
+                appearance: none;
+                -webkit-appearance: none;
+            }
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 80px 20px;
+        }
+
+        .empty-state svg {
+            width: 80px;
+            height: 80px;
+            color: var(--gray-light);
+            margin-bottom: 25px;
+        }
+
+        .empty-state h3 {
+            font-size: 1.5rem;
+            color: var(--text-color);
+            margin-bottom: 10px;
+        }
+
+        .empty-state p {
+            color: var(--text-muted);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <nav>
+                <div class="mobile-menu-toggle" id="mobile-menu-toggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <div class="logo">
+                    <a href="index.html">MOONJ<span>CRAFT</span></a>
+                </div>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="collection.html">Collection</a></li>
+                    <li><a href="faq.html">FAQ</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html">Contact</a></li>
+                    <li><a href="quote-request.html" class="quote-link">Quote <span class="quote-badge" style="display:none;">0</span></a></li>
+                </ul>
+                <div class="mobile-quote-icon">
+                    <a href="quote-request.html">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                        <span class="quote-badge mobile-badge" style="display:none;">0</span>
+                    </a>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <div class="mobile-sidebar" id="mobile-sidebar">
+        <div class="sidebar-header">
+            <div class="logo">
+                <a href="index.html">MOONJ<span>CRAFT</span></a>
+            </div>
+            <div class="close-sidebar" id="close-sidebar">&times;</div>
+        </div>
+        <ul class="sidebar-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="collection.html">Collection</a></li>
+            <li><a href="faq.html">FAQ</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="quote-request.html">Quote Request</a></li>
+        </ul>
+        <div style="margin-top: auto; padding-top: 30px; border-top: 1px solid var(--gray-light);">
+            <p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 10px;">Connect with us</p>
+            <p style="font-size: 0.9rem; font-weight: 600;">sonugupta.connect@gmail.com</p>
+        </div>
+    </div>
+    <div class="sidebar-overlay" id="sidebar-overlay"></div>
+
+    <script src="quoteManager.js"></script>
+    <script src="data.js"></script>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="collection-hero">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a href="index.html">Home</a> / Collection
+                </div>
+                <h1>Our <span>Handcrafted Collection</span></h1>
+                <p>Discover the beauty of handwoven Moonj grass — each piece tells a story of tradition, craftsmanship, and sustainable living passed down through generations.</p>
+                <div class="collection-stats">
+                    <div class="stat-item">
+                        <span class="stat-value" id="total-products">24</span>
+                        <span class="stat-label">Products</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value">6</span>
+                        <span class="stat-label">Categories</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value">50+</span>
+                        <span class="stat-label">Artisans</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Category Filter -->
+        <nav class="category-filter">
+            <div class="container">
+                <div class="filter-tabs" id="filter-tabs">
+                    <button class="filter-tab active" data-category="all">All Products</button>
+                    <button class="filter-tab" data-category="Serving Trays">Serving Trays</button>
+                    <button class="filter-tab" data-category="Multipurpose / Roti Baskets">Roti Baskets</button>
+                    <button class="filter-tab" data-category="Laundry & Storage">Laundry & Storage</button>
+                    <button class="filter-tab" data-category="Fruit Baskets">Fruit Baskets</button>
+                    <button class="filter-tab" data-category="Desk Organiser">Desk Organiser</button>
+                    <button class="filter-tab" data-category="Tea Coasters">Tea Coasters</button>
+                </div>
+                <div class="filter-select-wrapper">
+                    <select class="filter-select" id="filter-select">
+                        <option value="all">All Products</option>
+                        <option value="Serving Trays">Serving Trays</option>
+                        <option value="Multipurpose / Roti Baskets">Roti Baskets</option>
+                        <option value="Laundry & Storage">Laundry & Storage</option>
+                        <option value="Fruit Baskets">Fruit Baskets</option>
+                        <option value="Desk Organiser">Desk Organiser</option>
+                        <option value="Tea Coasters">Tea Coasters</option>
+                    </select>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Products Section -->
+        <section class="collection-section">
+            <div class="container">
+                <div id="products-container">
+                    <!-- Dynamically populated -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-section">
+                    <div class="logo" style="margin-bottom: 25px;">
+                        <a href="index.html" style="color: var(--white);">MOONJ<span>CRAFT</span></a>
+                    </div>
+                    <p style="color: #999; margin-bottom: 25px;">Handcrafted sustainable decor from the heart of Purvanchal, India. Empowering rural artisans through fair commerce.</p>
+                    <p style="color: var(--accent-gold);">100% Eco-Friendly | Handmade</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Collections</h3>
+                    <ul class="footer-links">
+                        <li><a href="collection.html#serving-trays">Tabletop</a></li>
+                        <li><a href="collection.html#multipurpose-roti-baskets">Kitchen & Roti</a></li>
+                        <li><a href="collection.html#laundry-storage">Laundry & Storage</a></li>
+                        <li><a href="collection.html#fruit-baskets">Gift Hampers</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Explore</h3>
+                    <ul class="footer-links">
+                        <li><a href="about.html">Our Story</a></li>
+                        <li><a href="collection.html">Full Catalog</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="gallery.html">Gallery</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Connect</h3>
+                    <p style="margin-bottom: 10px;">Email: <a href="mailto:sonugupta.connect@gmail.com">sonugupta.connect@gmail.com</a></p>
+                    <p style="margin-bottom: 10px;">WhatsApp: <a href="https://wa.me/918447236068">+91 8447236068</a></p>
+                    <p>Medical College Road, Basharatpur, Gorakhpur, Uttar Pradesh, India 273004</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 MoonjCraft. All rights reserved. Preserving heritage, one weave at a time.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const productsContainer = document.getElementById('products-container');
+            const filterTabs = document.querySelectorAll('.filter-tab');
+            let currentFilter = 'all';
+
+            // Category icons
+            const categoryIcons = {
+                'Serving Trays': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>',
+                'Multipurpose / Roti Baskets': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>',
+                'Laundry & Storage': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3h18v18H3zM12 8v8M8 12h8"/></svg>',
+                'Fruit Baskets': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="5"/><path d="M12 13v4M8 21h8"/></svg>',
+                'Desk Organiser': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="18" rx="2"/><line x1="8" y1="3" x2="8" y2="21"/></svg>',
+                'Tea Coasters': '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="12" rx="10" ry="4"/></svg>'
+            };
+
+            const categoryDescriptions = {
+                'Serving Trays': 'Elegant trays for dining, serving, and displaying with natural warmth.',
+                'Multipurpose / Roti Baskets': 'Versatile baskets perfect for kitchen storage and bread service.',
+                'Laundry & Storage': 'Large capacity baskets for organizing your home naturally.',
+                'Fruit Baskets': 'Beautiful display baskets for fruits, gifts, and home decor.',
+                'Desk Organiser': 'Keep your workspace tidy with these handcrafted organizers.',
+                'Tea Coasters': 'Protect surfaces in style with our woven cup coasters.'
+            };
+
+            // Render products
+            function renderProducts(category = 'all') {
+                const filteredProducts = category === 'all'
+                    ? products
+                    : products.filter(p => p.category === category);
+
+                if (filteredProducts.length === 0) {
+                    productsContainer.innerHTML = `
+                        <div class="empty-state">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M16 16s-1.5-2-4-2-4 2-4 2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg>
+                            <h3>No Products Found</h3>
+                            <p>Try selecting a different category.</p>
+                        </div>
+                    `;
+                    return;
+                }
+
+                // Group by category
+                const grouped = {};
+                filteredProducts.forEach(product => {
+                    if (!grouped[product.category]) {
+                        grouped[product.category] = [];
+                    }
+                    grouped[product.category].push(product);
+                });
+
+                let html = '';
+                for (const cat in grouped) {
+                    const catProducts = grouped[cat];
+                    const icon = categoryIcons[cat] || '';
+                    const description = categoryDescriptions[cat] || '';
+
+                    html += `
+                        <div class="category-block" id="${cat.toLowerCase().replace(/[^a-z0-9]+/g, '-')}">
+                            <div class="category-header">
+                                <div class="category-icon">${icon}</div>
+                                <h2>${cat}</h2>
+                                <p>${description}</p>
+                                <div class="category-divider"></div>
+                            </div>
+                            <div class="products-grid">
+                    `;
+
+                    catProducts.forEach((product, index) => {
+                        const variant = product.variants[0];
+                        const dims = variant.upperDia ? `${variant.upperDia}" diameter${variant.depth ? ' × ' + variant.depth + '" ht' : ''}` : '';
+                        const minQty = product.category === 'Tea Coasters' ? '6' : '10';
+
+                        html += `
+                            <div class="product-card-new reveal" style="transition-delay: ${index * 0.1}s;" onclick="if(!event.target.closest('button') && !event.target.closest('input')) window.location.href='product.html#sku=${product.sku}'">
+                                <div class="product-image-wrap">
+                                    <img src="${product.heroImage}" alt="${product.name}" loading="lazy">
+                                    <span class="product-badge">${product.category}</span>
+                                    <div class="product-quick-actions">
+                                        <button class="quick-action-btn" onclick="addToQuoteFromCard('${product.sku}', ${minQty})" title="Quick Add">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                                        </button>
+                                        <button class="quick-action-btn" onclick="window.location.href='product.html#sku=${product.sku}'" title="Quick View">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="product-info">
+                                    <div class="product-sku">${product.sku}</div>
+                                    <h3 class="product-name">${product.name}</h3>
+                                    <div class="product-dims">${dims}</div>
+                                    <div class="product-footer">
+                                        <div class="product-price">Sample Available</div>
+                                        <div class="product-actions">
+                                            <div class="qty-control">
+                                                <button onclick="updateCardQty('${product.sku}', -1)">-</button>
+                                                <input type="number" id="qty-${product.sku}" value="${minQty}" min="${minQty}">
+                                                <button onclick="updateCardQty('${product.sku}', 1)">+</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <button onclick="addToQuoteFromCard('${product.sku}', ${minQty})" class="add-to-quote-btn" style="width: 100%; border-radius: 0 0 16px 16px; padding: 12px;">Add to Quote</button>
+                                <a href="product.html#sku=${product.sku}" class="view-details-link">View Full Details →</a>
+                            </div>
+                        `;
+                    });
+
+                    html += '</div></div>';
+                }
+
+                productsContainer.innerHTML = html;
+
+                // Re-init reveal
+                if (window.initReveal) window.initReveal();
+            }
+
+            // Update quantity
+            window.updateCardQty = (sku, delta) => {
+                const input = document.getElementById(`qty-${sku}`);
+                const min = parseInt(input.min) || 1;
+                const newVal = parseInt(input.value) + delta;
+                if (newVal >= min) input.value = newVal;
+            };
+
+            // Add to quote
+            window.addToQuoteFromCard = (sku, defaultQty) => {
+                const qty = parseInt(document.getElementById(`qty-${sku}`).value) || defaultQty;
+                QuoteManager.addItem(sku, 0, qty);
+
+                if (window.showToast) {
+                    showToast(`${qty} items added to your quote request`, 'View Quote Request', 'quote-request.html');
+                } else {
+                    window.location.href = 'quote-request.html';
+                }
+            };
+
+            // Filter tabs
+            filterTabs.forEach(tab => {
+                tab.addEventListener('click', () => {
+                    filterTabs.forEach(t => t.classList.remove('active'));
+                    tab.classList.add('active');
+                    currentFilter = tab.dataset.category;
+                    document.getElementById('filter-select').value = currentFilter;
+                    renderProducts(currentFilter);
+                });
+            });
+
+            // Filter dropdown (mobile)
+            const filterSelect = document.getElementById('filter-select');
+            filterSelect.addEventListener('change', () => {
+                const value = filterSelect.value;
+                filterTabs.forEach(t => t.classList.remove('active'));
+                const matchingTab = document.querySelector(`.filter-tab[data-category="${value}"]`);
+                if (matchingTab) matchingTab.classList.add('active');
+                currentFilter = value;
+                renderProducts(currentFilter);
+            });
+
+            // Initial render
+            renderProducts();
+
+            // Update stats
+            document.getElementById('total-products').textContent = products.length;
+        });
+    </script>
+</body>
+</html>
