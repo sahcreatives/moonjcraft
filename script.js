@@ -263,7 +263,7 @@ async function submitToBackend(data) {
 
     // We use a timeout to ensure the UI never hangs indefinitely
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 8000);
+    const timeoutId = setTimeout(() => controller.abort(), 20000);
 
     try {
         // We do NOT set 'Content-Type': 'application/json' because it triggers 
