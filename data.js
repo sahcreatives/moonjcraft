@@ -119,7 +119,7 @@ const products = [
             { size: 'Large (L)', upperDia: '12', depth: '8.5', other: '', price: '520', notes: 'Available in different colours & sizes' }
         ],
         heroImage: 'images/SL_10/Regenerate_image_white_backgroun…_202605030105.jpeg',
-        images: ['images/SL_10/Regenerate_image_white_backgroun…_202605030105.jpeg', 'images/SL_10/Regenerate_image_white_backgroun…_202605030107.jpeg', 'images/SL_10/Gemini_Generated_Image_66e7ct66e7ct66e7.png', 'images/SL_10/Gemini_Generated_Image_srp3w2srp3w2srp3 (1).png']
+        images: ['images/SL_10/Regenerate_image_white_backgroun…_202605030105.jpeg', 'images/SL_10/Gemini_Generated_Image_66e7ct66e7ct66e7.png']
     },
     {
         sku: 'TC_01',
