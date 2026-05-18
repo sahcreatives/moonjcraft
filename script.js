@@ -208,25 +208,30 @@ function initLightbox() {
     document.addEventListener('click', (e) => {
         const target = e.target;
         
-        // Check if the clicked element is a product image we want to zoom
-        // On product pages, we always want the lightbox. 
-        // On cards, we only trigger if there's no redirect or if we want to prioritize zoom.
-        const isProductPageImage = (target.id === 'main-product-image' || target.closest('.main-image-container'));
-        const isCardImage = target.closest('.product-card') && !target.closest('.thumbnail');
+        // Strictly target image elements for lightbox
+        if (target.tagName !== 'IMG') return;
 
-        if (isProductPageImage || (isCardImage && window.location.pathname.includes('product.html'))) {
-            // Prevent redirect if we are already on product page or if it's a dedicated zoom action
-            if (target.getAttribute('onclick')) {
-                // If it's a card on the product page (similar items), we might want to let it redirect
-                // unless we specifically want to lightbox similar items too.
-                // Let's allow lightbox for main image and cards ONLY if they don't have a redirect
-                // OR if we are on the product page.
-            }
-            
+        // Check if the clicked element is a product image we want to zoom
+        const isProductPageMainImage = target.id === 'main-product-image';
+        const isGalleryThumbnail = target.closest('.thumbnail');
+        const isRegularProductCardImage = target.closest('.product-card') || target.closest('.product-card-new');
+
+        // On product pages, we ONLY lightbox the main image (thumbnails update the main image)
+        // We do NOT lightbox images inside "Similar Items" cards on product.html to allow navigation
+        const isProductPage = window.location.pathname.includes('product.html');
+        
+        let shouldLightbox = false;
+        if (isProductPage) {
+            if (isProductPageMainImage) shouldLightbox = true;
+        } else {
+            if (isRegularProductCardImage) shouldLightbox = true;
+        }
+
+        if (shouldLightbox) {
             lightbox.style.display = 'block';
             lightboxImg.src = target.src;
             lightboxCaption.textContent = target.alt || 'MoonjCraft Handcrafted Product';
-            document.body.style.overflow = 'hidden'; // Prevent scrolling
+            document.body.style.overflow = 'hidden';
             e.preventDefault();
             e.stopPropagation();
         }
@@ -263,7 +268,7 @@ async function submitToBackend(data) {
 
     // We use a timeout to ensure the UI never hangs indefinitely
     const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 60000);
+    const timeoutId = setTimeout(() => controller.abort(), 15000); // Increased to 15 seconds
 
     try {
         // We do NOT set 'Content-Type': 'application/json' because it triggers 
