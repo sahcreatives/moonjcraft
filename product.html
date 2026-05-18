@@ -228,166 +228,146 @@
         </div>
     </footer>
 
-    <script src="data.js"></script>
     <script src="script.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            const urlParams = new URLSearchParams(window.location.search);
-            let skuParam = urlParams.get('sku');
-            
-            if (!skuParam && window.location.hash) {
-                const hash = window.location.hash.substring(1); 
-                const hashParams = new URLSearchParams(hash);
-                skuParam = hashParams.get('sku');
-            }
-
-            const product = products.find(p => p.sku === skuParam);
-
-            if (!product) {
-                document.getElementById('product-container').innerHTML = `
-                    <div class="text-center" style="padding: 100px 0;">
-                        <h1 class="section-title">Product Not Found</h1>
-                        <p style="margin-bottom: 40px;">The SKU you are looking for does not exist in our current collection.</p>
-                        <a href="collection.html" class="btn btn-primary">Return to Catalog</a>
-                    </div>
-                `;
-                return;
-            }
-
-            document.title = `${product.name} - MoonjCraft`;
-
-            // Setup images for carousel from data.js
-            const productImages = product.images || [product.heroImage];
-            
-            // Remove duplicates
-            const uniqueImages = [...new Set(productImages)];
-
-            const container = document.getElementById('product-container');
-            container.innerHTML = `
-                <div class="product-hero">
-                    <div class="product-gallery">
-                        <div class="main-image-container">
-                            <img id="main-product-image" src="${uniqueImages[0]}" alt="${product.name}">
-                        </div>
-                        <div class="thumbnail-grid">
-                            ${uniqueImages.map((img, idx) => `
-                                <div class="thumbnail ${idx === 0 ? 'active' : ''}" onclick="updateMainImage('${img}', this)">
-                                    <img src="${img}" alt="Thumbnail ${idx + 1}">
-                                </div>
-                            `).join('')}
-                        </div>
-                    </div>
-                    
-                    <div class="product-info">
-                        <span class="sku-tag">${product.sku}</span>
-                        <h1 style="font-size: 3.5rem; margin-bottom: 20px;">${product.name}</h1>
-                        <p style="font-size: 1.1rem; color: var(--text-muted); margin-bottom: 40px;">Handcrafted with precision using sustainable Moonj grass. This ${product.name.toLowerCase()} is a testament to the skill and heritage of Northern Indian artisans. Each piece carries the story of the riverbanks and the hands that wove it.</p>
-                        
-                        <div class="variant-selection" style="margin-bottom: 30px;">
-                            <label style="display: block; margin-bottom: 10px; font-weight: 600;">Select Variant:</label>
-                            <select id="variant-select" style="width: 100%; padding: 12px; border: 1px solid var(--gray-light); border-radius: 8px; background: var(--bg-color);">
-                                ${product.variants.map((v, idx) => `
-                                    <option value="${idx}">${v.size || 'Standard'} (${v.upperDia ? v.upperDia + '" dia' : ''}${v.depth ? ' x ' + v.depth + '" ht' : ''})</option>
-                                `).join('')}
-                            </select>
-                        </div>
-
-                        <div class="quantity-selection" style="margin-bottom: 30px; display: flex; align-items: center; gap: 20px;">
-                            <label style="font-weight: 600;">Quantity:</label>
-                            <div style="display: flex; align-items: center; border: 1px solid var(--gray-light); border-radius: 8px; overflow: hidden; background: #fff;">
-                                <button onclick="decrementQty()" style="padding: 12px 20px; background: white; border: none; cursor: pointer; font-size: 1.2rem;">-</button>
-                                <input type="number" id="qty-input" value="10" min="1" style="width: 60px; text-align: center; border: none; padding: 10px 0; font-weight: 600;">
-                                <button onclick="incrementQty()" style="padding: 12px 20px; background: white; border: none; cursor: pointer; font-size: 1.2rem;">+</button>
-                            </div>
-                        </div>
-
-                        <div style="margin-bottom: 25px; color: var(--accent-gold); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem;">
-                            Sample Available
-                        </div>
-
-                        <div class="order-panel">
-                            <h3 style="font-family: var(--font-heading); margin-bottom: 15px; color: var(--accent-green);">Wholesale Inquiry</h3>
-                            <p style="margin-bottom: 25px; color: var(--text-muted); font-size: 0.95rem;">MOQ: 10 pieces (can be combination of different items). Worldwide shipping. Standard lead time: 2-4 weeks.</p>
-                            <button id="add-to-quote-btn" class="btn btn-primary" style="width: 100%; text-align: center; cursor: pointer; margin-bottom: 0;">Add to Quote Request</button>
-                        </div>
-                    </div>
-                </div>
-            `;
-
-            // Gallery logic
-            window.updateMainImage = (src, thumbElement) => {
-                const mainImg = document.getElementById('main-product-image');
-                mainImg.style.opacity = '0.5';
+            // Function to load product based on current URL hash
+            const loadProductFromHash = () => {
+                const urlParams = new URLSearchParams(window.location.search);
+                let skuParam = urlParams.get('sku');
                 
-                setTimeout(() => {
-                    mainImg.src = src;
-                    mainImg.style.opacity = '1';
-                }, 200);
-
-                document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
-                thumbElement.classList.add('active');
-            };
-
-            // Global functions for quantity buttons
-            window.incrementQty = () => {
-                const input = document.getElementById('qty-input');
-                input.value = parseInt(input.value) + 1;
-            };
-            window.decrementQty = () => {
-                const input = document.getElementById('qty-input');
-                if (parseInt(input.value) > 1) input.value = parseInt(input.value) - 1;
-            };
-
-            // Add to quote event
-            document.getElementById('add-to-quote-btn').addEventListener('click', () => {
-                const variantIndex = parseInt(document.getElementById('variant-select').value);
-                const quantity = parseInt(document.getElementById('qty-input').value);
-                
-                QuoteManager.addItem(product.sku, variantIndex, quantity);
-                
-                // Show feedback
-                const btn = document.getElementById('add-to-quote-btn');
-                const originalText = btn.textContent;
-                btn.textContent = 'Added to Quote!';
-                btn.style.backgroundColor = 'var(--accent-green)';
-                
-                if (window.showToast) {
-                    showToast(`${quantity} ${product.name} added to your quote`, 'View Quote Request', 'quote-request.html');
+                if (!skuParam && window.location.hash) {
+                    const hash = window.location.hash.substring(1); 
+                    const hashParams = new URLSearchParams(hash);
+                    skuParam = hashParams.get('sku');
                 }
 
-                setTimeout(() => {
-                    btn.textContent = originalText;
-                    btn.style.backgroundColor = '';
-                }, 2000);
-            });
-            
-            // Similar Items logic
-            const similarGrid = document.getElementById('similar-products-grid');
-            let similarProducts = products
-                .filter(p => p.category === product.category && p.sku !== product.sku);
+                const product = products.find(p => p.sku === skuParam);
 
-            const totalNeeded = 4;
-            if (similarProducts.length < totalNeeded) {
-                // Fill with random items from other categories
-                const otherProducts = products
-                    .filter(p => p.sku !== product.sku && !similarProducts.find(sp => sp.sku === p.sku))
-                    .sort(() => 0.5 - Math.random());
-                
-                similarProducts = [...similarProducts, ...otherProducts].slice(0, totalNeeded);
-                document.getElementById('similar-subtitle').textContent = `Explore more handcrafted pieces from our collection.`;
-            } else {
-                similarProducts = similarProducts.slice(0, totalNeeded);
-                document.getElementById('similar-subtitle').textContent = `Explore more handcrafted pieces from our ${product.category} collection.`;
-            }
+                if (!product) {
+                    document.getElementById('product-container').innerHTML = `
+                        <div class="text-center" style="padding: 100px 0;">
+                            <h1 class="section-title">Product Not Found</h1>
+                            <p style="margin-bottom: 40px;">The SKU you are looking for does not exist in our current collection.</p>
+                            <a href="collection.html" class="btn btn-primary">Return to Catalog</a>
+                        </div>
+                    `;
+                    return;
+                }
 
-            renderSimilarCards(similarProducts, similarGrid);
+                document.title = `${product.name} - MoonjCraft`;
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+
+                // Setup images for carousel
+                const productImages = product.images || [product.heroImage];
+                const uniqueImages = [...new Set(productImages)];
+
+                const container = document.getElementById('product-container');
+                container.innerHTML = `
+                    <div class="product-hero">
+                        <div class="product-gallery">
+                            <div class="main-image-container">
+                                <img id="main-product-image" src="${uniqueImages[0]}" alt="${product.name}">
+                            </div>
+                            <div class="thumbnail-grid">
+                                ${uniqueImages.map((img, idx) => `
+                                    <div class="thumbnail ${idx === 0 ? 'active' : ''}" onclick="updateMainImage('${img}', this)">
+                                        <img src="${img}" alt="Thumbnail ${idx + 1}">
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                        
+                        <div class="product-info">
+                            <span class="sku-tag">${product.sku}</span>
+                            <h1 style="font-size: 3.5rem; margin-bottom: 20px;">${product.name}</h1>
+                            <p style="font-size: 1.1rem; color: var(--text-muted); margin-bottom: 40px;">Handcrafted with precision using sustainable Moonj grass. This ${product.name.toLowerCase()} is a testament to the skill and heritage of Northern Indian artisans. Each piece carries the story of the riverbanks and the hands that wove it.</p>
+                            
+                            <div class="variant-selection" style="margin-bottom: 30px;">
+                                <label style="display: block; margin-bottom: 10px; font-weight: 600;">Select Variant:</label>
+                                <select id="variant-select" style="width: 100%; padding: 12px; border: 1px solid var(--gray-light); border-radius: 8px; background: var(--bg-color);">
+                                    ${product.variants.map((v, idx) => `
+                                        <option value="${idx}">${v.size || 'Standard'} (${v.upperDia ? v.upperDia + '" dia' : ''}${v.depth ? ' x ' + v.depth + '" ht' : ''})</option>
+                                    `).join('')}
+                                </select>
+                            </div>
+
+                            <div class="quantity-selection" style="margin-bottom: 30px; display: flex; align-items: center; gap: 20px;">
+                                <label style="font-weight: 600;">Quantity:</label>
+                                <div style="display: flex; align-items: center; border: 1px solid var(--gray-light); border-radius: 8px; overflow: hidden; background: #fff;">
+                                    <button onclick="decrementQty()" style="padding: 12px 20px; background: white; border: none; cursor: pointer; font-size: 1.2rem;">-</button>
+                                    <input type="number" id="qty-input" value="10" min="1" style="width: 60px; text-align: center; border: none; padding: 10px 0; font-weight: 600;">
+                                    <button onclick="incrementQty()" style="padding: 12px 20px; background: white; border: none; cursor: pointer; font-size: 1.2rem;">+</button>
+                                </div>
+                            </div>
+
+                            <div style="margin-bottom: 25px; color: var(--accent-gold); font-weight: 600; text-transform: uppercase; letter-spacing: 1px; font-size: 0.9rem;">
+                                Sample Available
+                            </div>
+
+                            <div class="order-panel">
+                                <h3 style="font-family: var(--font-heading); margin-bottom: 15px; color: var(--accent-green);">Wholesale Inquiry</h3>
+                                <p style="margin-bottom: 25px; color: var(--text-muted); font-size: 0.95rem;">MOQ: 10 pieces (can be combination of different items). Worldwide shipping. Standard lead time: 2-4 weeks.</p>
+                                <button id="add-to-quote-btn" class="btn btn-primary" style="width: 100%; text-align: center; cursor: pointer; margin-bottom: 0;">Add to Quote Request</button>
+                            </div>
+                        </div>
+                    </div>
+                `;
+
+                // Re-attach add to quote event
+                document.getElementById('add-to-quote-btn').addEventListener('click', () => {
+                    const variantIndex = parseInt(document.getElementById('variant-select').value);
+                    const quantity = parseInt(document.getElementById('qty-input').value);
+                    QuoteManager.addItem(product.sku, variantIndex, quantity);
+                    
+                    const btn = document.getElementById('add-to-quote-btn');
+                    const originalText = btn.textContent;
+                    btn.textContent = 'Added to Quote!';
+                    btn.style.backgroundColor = 'var(--accent-green)';
+                    
+                    if (window.showToast) {
+                        showToast(`${quantity} ${product.name} added to your quote`, 'View Quote Request', 'quote-request.html');
+                    }
+
+                    setTimeout(() => {
+                        btn.textContent = originalText;
+                        btn.style.backgroundColor = '';
+                    }, 2000);
+                });
+
+                // Similar Items logic
+                const similarGrid = document.getElementById('similar-products-grid');
+                similarGrid.innerHTML = ''; // Clear old items
+                let similarProducts = products.filter(p => p.category === product.category && p.sku !== product.sku);
+                const totalNeeded = 4;
+                if (similarProducts.length < totalNeeded) {
+                    const otherProducts = products
+                        .filter(p => p.sku !== product.sku && !similarProducts.find(sp => sp.sku === p.sku))
+                        .sort(() => 0.5 - Math.random());
+                    similarProducts = [...similarProducts, ...otherProducts].slice(0, totalNeeded);
+                    document.getElementById('similar-subtitle').textContent = `Explore more handcrafted pieces from our collection.`;
+                } else {
+                    similarProducts = similarProducts.slice(0, totalNeeded);
+                    document.getElementById('similar-subtitle').textContent = `Explore more handcrafted pieces from our ${product.category} collection.`;
+                }
+
+                renderSimilarCards(similarProducts, similarGrid);
+                if (window.initReveal) window.initReveal();
+            };
+
+            // Initial load
+            loadProductFromHash();
+
+            // Handle URL changes (when clicking similar items)
+            window.addEventListener('hashchange', loadProductFromHash);
 
             function renderSimilarCards(items, grid) {
                 items.forEach((item, index) => {
                     const card = document.createElement('div');
                     card.className = 'product-card reveal';
                     card.style.transitionDelay = `${index * 0.1}s`;
-                    card.setAttribute('onclick', `if(!event.target.closest('button') && !event.target.closest('input')) { window.location.href='product.html#sku=${item.sku}'; }`);
+                    // Note: window.location.hash change will trigger the loadProductFromHash listener
+                    card.setAttribute('onclick', `if(!event.target.closest('button') && !event.target.closest('input')) { window.location.hash='sku=${item.sku}'; }`);
 
                     const v = item.variants[0];
                     const dims = v.upperDia ? `${v.upperDia}" dia x ${v.depth}" ht` : '';
@@ -408,11 +388,28 @@
                             <button onclick="addToQuoteFromCard('${item.sku}')" class="btn btn-primary" style="padding: 10px; margin-bottom: 0; font-size: 0.8rem; flex: 2;">Add to Quote</button>
                         </div>
                         
-                        <a href="product.html#sku=${item.sku}" style="font-size: 0.8rem; color: var(--accent-terracotta); text-decoration: none; font-weight: 600;">View Full Details →</a>
+                        <a href="#sku=${item.sku}" style="font-size: 0.8rem; color: var(--accent-terracotta); text-decoration: none; font-weight: 600;">View Full Details →</a>
                     `;
                     grid.appendChild(card);
                 });
             }
+
+            window.updateMainImage = (src, thumbElement) => {
+                const mainImg = document.getElementById('main-product-image');
+                mainImg.src = src;
+                document.querySelectorAll('.thumbnail').forEach(t => t.classList.remove('active'));
+                thumbElement.classList.add('active');
+            };
+
+            window.incrementQty = () => {
+                const input = document.getElementById('qty-input');
+                input.value = parseInt(input.value) + 1;
+            };
+
+            window.decrementQty = () => {
+                const input = document.getElementById('qty-input');
+                if (parseInt(input.value) > 1) input.value = parseInt(input.value) - 1;
+            };
 
             window.updateCardQty = (sku, delta) => {
                 const input = document.getElementById(`qty-${sku}`);
@@ -423,15 +420,10 @@
             window.addToQuoteFromCard = (sku) => {
                 const qty = parseInt(document.getElementById(`qty-${sku}`).value);
                 QuoteManager.addItem(sku, 0, qty);
-                
                 if (window.showToast) {
                     showToast(`${qty} items added to your quote request`, 'View Quote Request', 'quote-request.html');
-                } else {
-                    window.location.href = 'quote-request.html';
                 }
             };
-            
-            if (window.initReveal) window.initReveal();
         });
     </script>
 </body>
