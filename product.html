@@ -387,7 +387,7 @@
                     const card = document.createElement('div');
                     card.className = 'product-card reveal';
                     card.style.transitionDelay = `${index * 0.1}s`;
-                    card.setAttribute('onclick', `if(!event.target.closest('button') && !event.target.closest('input')) { window.location.href='product.html#sku=${item.sku}'; window.location.reload(); }`);
+                    card.setAttribute('onclick', `if(!event.target.closest('button') && !event.target.closest('input')) { window.location.href='product.html#sku=${item.sku}'; }`);
 
                     const v = item.variants[0];
                     const dims = v.upperDia ? `${v.upperDia}" dia x ${v.depth}" ht` : '';
@@ -408,7 +408,7 @@
                             <button onclick="addToQuoteFromCard('${item.sku}')" class="btn btn-primary" style="padding: 10px; margin-bottom: 0; font-size: 0.8rem; flex: 2;">Add to Quote</button>
                         </div>
                         
-                        <a href="product.html#sku=${item.sku}" onclick="window.location.reload();" style="font-size: 0.8rem; color: var(--accent-terracotta); text-decoration: none; font-weight: 600;">View Full Details →</a>
+                        <a href="product.html#sku=${item.sku}" style="font-size: 0.8rem; color: var(--accent-terracotta); text-decoration: none; font-weight: 600;">View Full Details →</a>
                     `;
                     grid.appendChild(card);
                 });
