@@ -155,6 +155,7 @@
                 <div class="footer-section">
                     <h3>Collections</h3>
                     <ul class="footer-links">
+                        <li><a href="collection.html#wall-hanging">Wall Hanging</a></li>
                         <li><a href="collection.html#serving-trays">Tabletop</a></li>
                         <li><a href="collection.html#multipurpose-roti-baskets">Kitchen & Roti</a></li>
                         <li><a href="collection.html#laundry-storage">Laundry & Storage</a></li>
@@ -206,7 +207,7 @@
 
             const result = await submitToBackend(formData);
 
-            if (result.result === 'success' || result.result === 'not_configured') {
+            if (result.result !== 'error') {
                 document.querySelector('.contact-form').innerHTML = `
                     <div class="text-center" style="padding: 60px 20px; animation: fadeIn 0.8s ease; grid-column: 1 / -1;">
                         <div style="width: 80px; height: 80px; background: #f0fdf4; color: #16a34a; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 30px; border: 2px solid #bbf7d0;">
