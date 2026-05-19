@@ -4,15 +4,21 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product Details - MoonjCraft</title>
+
+    <!-- Font Preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
     <link rel="stylesheet" href="style.css">
     <style>
         .container {
             max-width: 1400px;
             margin: 0 auto;
+            padding: 0 30px;
         }
         header .container, footer .container {
-            max-width: 100%;
-            padding: 0 40px;
+            max-width: 1200px;
+            padding: 0 30px;
         }
         .product-hero {
             display: grid;
@@ -98,6 +104,23 @@
             }
             .product-info {
                 position: static;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 20px;
+            }
+            header .container, footer .container {
+                padding: 0 20px;
+            }
+            .product-hero {
+                margin-top: 20px;
+                margin-bottom: 60px;
+                gap: 30px;
+            }
+            .product-info h1 {
+                font-size: 2.4rem !important;
             }
         }
     </style>
@@ -200,6 +223,7 @@
                 <div class="footer-section">
                     <h3>Collections</h3>
                     <ul class="footer-links">
+                        <li><a href="collection.html#wall-hanging">Wall Hanging</a></li>
                         <li><a href="collection.html#serving-trays">Tabletop</a></li>
                         <li><a href="collection.html#multipurpose-roti-baskets">Kitchen & Roti</a></li>
                         <li><a href="collection.html#laundry-storage">Laundry & Storage</a></li>
