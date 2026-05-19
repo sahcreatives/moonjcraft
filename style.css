@@ -335,6 +335,7 @@ nav {
     color: var(--white);
     margin-bottom: 0;
     overflow: hidden;
+    background-color: var(--accent-green); /* Fallback for FCP */
 }
 
 .hero-slider {
