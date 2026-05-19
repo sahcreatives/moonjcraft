@@ -241,6 +241,186 @@ const products = [
         ],
         heroImage: 'images/LB_05/img262.jpg',
         images: ['images/LB_05/img262.jpg', 'images/LB_05/img263.jpg']
+    },
+    {
+        sku: 'WA_01',
+        name: 'Moonj Grass Wall Hanging',
+        category: 'Wall Hanging',
+        variants: [
+            { size: 'Small (S)', upperDia: '8', depth: '', other: '', price: '', notes: 'Available in different colours & sizes' },
+            { size: 'Medium (M)', upperDia: '12', depth: '', other: '', price: '', notes: 'Available in different colours & sizes' },
+            { size: 'Large (L)', upperDia: '16', depth: '', other: '', price: '', notes: 'Available in different colours & sizes' }
+        ],
+        heroImage: 'images/WA_01/img1.jpg',
+        images: ['images/WA_01/img1.jpg', 'images/WA_01/img2.jpg', 'images/WA_01/img3.jpg']
+    },
+    {
+        sku: 'WA_02',
+        name: 'Moonj Grass Wall Hanging',
+        category: 'Wall Hanging',
+        variants: [
+            { size: 'Small (S)', upperDia: '8', depth: '', other: '', price: '', notes: 'Available in different colours & sizes' },
+            { size: 'Medium (M)', upperDia: '12', depth: '', other: '', price: '', notes: 'Available in different colours & sizes' },
+            { size: 'Large (L)', upperDia: '16', depth: '', other: '', price: '', notes: 'Available in different colours & sizes' }
+        ],
+        heroImage: 'images/WA_02/img1.jpg',
+        images: ['images/WA_02/img1.jpg', 'images/WA_02/img2.jpg']
+    },
+    {
+        sku: 'WA_03',
+        name: 'Moonj Grass Wall Hanging',
+        category: 'Wall Hanging',
+        variants: [
+            { size: 'Small (S)', upperDia: '8', depth: '', other: '', price: '', notes: 'Available in different colours & sizes' },
+            { size: 'Medium (M)', upperDia: '12', depth: '', other: '', price: '', notes: 'Available in different colours & sizes' },
+            { size: 'Large (L)', upperDia: '16', depth: '', other: '', price: '', notes: 'Available in different colours & sizes' }
+        ],
+        heroImage: 'images/WA_03/img149.jpg',
+        images: ['images/WA_03/img149.jpg']
+    },
+    {
+        sku: 'WA_04',
+        name: 'Moonj Grass Wall Hanging',
+        category: 'Wall Hanging',
+        variants: [
+            { size: 'Small (S)', upperDia: '8', depth: '', other: '', price: '', notes: 'Available in different colours & sizes' },
+            { size: 'Medium (M)', upperDia: '12', depth: '', other: '', price: '', notes: 'Available in different colours & sizes' },
+            { size: 'Large (L)', upperDia: '16', depth: '', other: '', price: '', notes: 'Available in different colours & sizes' }
+        ],
+        heroImage: 'images/WA_04/img153.jpg',
+        images: ['images/WA_04/img153.jpg']
+    },
+    {
+        sku: 'WA_05',
+        name: 'Moonj Grass Wall Hanging',
+        category: 'Wall Hanging',
+        variants: [
+            { size: 'Small (S)', upperDia: '8', depth: '', other: '', price: '', notes: 'Available in different colours & sizes' },
+            { size: 'Medium (M)', upperDia: '12', depth: '', other: '', price: '', notes: 'Available in different colours & sizes' },
+            { size: 'Large (L)', upperDia: '16', depth: '', other: '', price: '', notes: 'Available in different colours & sizes' }
+        ],
+        heroImage: 'images/WA_05/img154.jpg',
+        images: ['images/WA_05/img154.jpg']
+    },
+    {
+        sku: 'WA_06',
+        name: 'Moonj Grass Wall Hanging',
+        category: 'Wall Hanging',
+        variants: [
+            { size: 'Small (S)', upperDia: '8', depth: '', other: '', price: '', notes: 'Available in different colours & sizes' },
+            { size: 'Medium (M)', upperDia: '12', depth: '', other: '', price: '', notes: 'Available in different colours & sizes' },
+            { size: 'Large (L)', upperDia: '16', depth: '', other: '', price: '', notes: 'Available in different colours & sizes' }
+        ],
+        heroImage: 'images/WA_06/img155.jpg',
+        images: ['images/WA_06/img155.jpg']
+    },
+    {
+        sku: 'WA_07',
+        name: 'Moonj Grass Wall Hanging',
+        category: 'Wall Hanging',
+        variants: [
+            { size: 'Small (S)', upperDia: '8', depth: '', other: '', price: '', notes: 'Available in different colours & sizes' },
+            { size: 'Medium (M)', upperDia: '12', depth: '', other: '', price: '', notes: 'Available in different colours & sizes' },
+            { size: 'Large (L)', upperDia: '16', depth: '', other: '', price: '', notes: 'Available in different colours & sizes' }
+        ],
+        heroImage: 'images/WA_07/img164.jpg',
+        images: ['images/WA_07/img164.jpg']
+    },
+    {
+        sku: 'WA_08',
+        name: 'Moonj Grass Wall Hanging',
+        category: 'Wall Hanging',
+        variants: [
+            { size: 'Small (S)', upperDia: '8', depth: '', other: '', price: '', notes: 'Available in different colours & sizes' },
+            { size: 'Medium (M)', upperDia: '12', depth: '', other: '', price: '', notes: 'Available in different colours & sizes' },
+            { size: 'Large (L)', upperDia: '16', depth: '', other: '', price: '', notes: 'Available in different colours & sizes' }
+        ],
+        heroImage: 'images/WA_08/img167.jpg',
+        images: ['images/WA_08/img167.jpg']
+    },
+    {
+        sku: 'WA_09',
+        name: 'Moonj Grass Wall Hanging',
+        category: 'Wall Hanging',
+        variants: [
+            { size: 'Small (S)', upperDia: '8', depth: '', other: '', price: '', notes: 'Available in different colours & sizes' },
+            { size: 'Medium (M)', upperDia: '12', depth: '', other: '', price: '', notes: 'Available in different colours & sizes' },
+            { size: 'Large (L)', upperDia: '16', depth: '', other: '', price: '', notes: 'Available in different colours & sizes' }
+        ],
+        heroImage: 'images/WA_09/img175.jpg',
+        images: ['images/WA_09/img175.jpg']
+    },
+    {
+        sku: 'WA_10',
+        name: 'Moonj Grass Wall Hanging',
+        category: 'Wall Hanging',
+        variants: [
+            { size: 'Small (S)', upperDia: '8', depth: '', other: '', price: '', notes: 'Available in different colours & sizes' },
+            { size: 'Medium (M)', upperDia: '12', depth: '', other: '', price: '', notes: 'Available in different colours & sizes' },
+            { size: 'Large (L)', upperDia: '16', depth: '', other: '', price: '', notes: 'Available in different colours & sizes' }
+        ],
+        heroImage: 'images/WA_10/img176.jpg',
+        images: ['images/WA_10/img176.jpg']
+    },
+    {
+        sku: 'WA_11',
+        name: 'Moonj Grass Wall Hanging',
+        category: 'Wall Hanging',
+        variants: [
+            { size: 'Small (S)', upperDia: '8', depth: '', other: '', price: '', notes: 'Available in different colours & sizes' },
+            { size: 'Medium (M)', upperDia: '12', depth: '', other: '', price: '', notes: 'Available in different colours & sizes' },
+            { size: 'Large (L)', upperDia: '16', depth: '', other: '', price: '', notes: 'Available in different colours & sizes' }
+        ],
+        heroImage: 'images/WA_11/img179.jpg',
+        images: ['images/WA_11/img179.jpg']
+    },
+    {
+        sku: 'WA_12',
+        name: 'Moonj Grass Wall Hanging',
+        category: 'Wall Hanging',
+        variants: [
+            { size: 'Small (S)', upperDia: '8', depth: '', other: '', price: '', notes: 'Available in different colours & sizes' },
+            { size: 'Medium (M)', upperDia: '12', depth: '', other: '', price: '', notes: 'Available in different colours & sizes' },
+            { size: 'Large (L)', upperDia: '16', depth: '', other: '', price: '', notes: 'Available in different colours & sizes' }
+        ],
+        heroImage: 'images/WA_12/img180.jpg',
+        images: ['images/WA_12/img180.jpg']
+    },
+    {
+        sku: 'WA_13',
+        name: 'Moonj Grass Wall Hanging',
+        category: 'Wall Hanging',
+        variants: [
+            { size: 'Small (S)', upperDia: '8', depth: '', other: '', price: '', notes: 'Available in different colours & sizes' },
+            { size: 'Medium (M)', upperDia: '12', depth: '', other: '', price: '', notes: 'Available in different colours & sizes' },
+            { size: 'Large (L)', upperDia: '16', depth: '', other: '', price: '', notes: 'Available in different colours & sizes' }
+        ],
+        heroImage: 'images/WA_13/img1.jpg',
+        images: ['images/WA_13/img1.jpg']
+    },
+    {
+        sku: 'WA_14',
+        name: 'Moonj Grass Wall Hanging',
+        category: 'Wall Hanging',
+        variants: [
+            { size: 'Small (S)', upperDia: '8', depth: '', other: '', price: '', notes: 'Available in different colours & sizes' },
+            { size: 'Medium (M)', upperDia: '12', depth: '', other: '', price: '', notes: 'Available in different colours & sizes' },
+            { size: 'Large (L)', upperDia: '16', depth: '', other: '', price: '', notes: 'Available in different colours & sizes' }
+        ],
+        heroImage: 'images/WA_14/img1.jpg',
+        images: ['images/WA_14/img1.jpg']
+    },
+    {
+        sku: 'WA_15',
+        name: 'Moonj Grass Wall Hanging',
+        category: 'Wall Hanging',
+        variants: [
+            { size: 'Small (S)', upperDia: '8', depth: '', other: '', price: '', notes: 'Available in different colours & sizes' },
+            { size: 'Medium (M)', upperDia: '12', depth: '', other: '', price: '', notes: 'Available in different colours & sizes' },
+            { size: 'Large (L)', upperDia: '16', depth: '', other: '', price: '', notes: 'Available in different colours & sizes' }
+        ],
+        heroImage: 'images/WA_15/img1.jpg',
+        images: ['images/WA_15/img1.jpg']
     }
 ];
 
